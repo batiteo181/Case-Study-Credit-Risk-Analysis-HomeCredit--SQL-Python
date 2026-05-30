@@ -1,34 +1,35 @@
-# Case-Study-Credit-Risk-Analysis-HomeCredit--SQL-Python
-Case study phân tích rủi ro tín dụng ngân hàng bằng SQL (BigQuery), Python và Tableau.
-# Phân Tích Dữ Liệu Rủi Ro Tín Dụng (Credit Risk Analysis) 
-**Công cụ sử dụng:** SQL (Google BigQuery), Python, Tableau Public.
+# Phân Tích Dữ Liệu Rủi Ro Tín Dụng (Credit Risk Analysis)
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1jnYylKUXVeZhdyjDaTWBFyerzC8ykWjp#scrollTo=lWP45kcHwzVD)
+
+**Công cụ sử dụng:** SQL (Google BigQuery), Python (Pandas, NumPy), Tableau Public.
 
 ## 1. Giới thiệu & Bài toán Kinh doanh (Ask)
-Ngành ngân hàng đang đẩy mạnh việc tích hợp AI và Machine Learning vào Core Banking để tự động hóa quy trình phê duyệt khoản vay (Credit Scoring). Tuy nhiên, để AI hoạt động chính xác, chúng ta cần hiểu rõ các đặc điểm nhân khẩu học nào của khách hàng có nguy cơ dẫn đến nợ xấu (Default).
+Ngành ngân hàng đang đẩy mạnh việc tích hợp AI và Machine Learning vào Core Banking để tự động hóa quy trình phê duyệt khoản vay (Credit Scoring). Tuy nhiên, để hệ thống AI hoạt động chính xác và hiệu quả, cần xác định rõ các đặc điểm nhân khẩu học dẫn đến nguy cơ nợ xấu (Default).
 
-**Mục tiêu dự án:** Phân tích tập dữ liệu lịch sử tín dụng để tìm ra mối liên hệ giữa độ tuổi, trình độ học vấn và khả năng trả nợ của khách hàng. Từ đó đề xuất các quy tắc (rules) để phân luồng phê duyệt tín dụng.
+**Mục tiêu dự án:** Phân tích tập dữ liệu lịch sử tín dụng để tìm ra mối liên hệ giữa độ tuổi, trình độ học vấn và khả năng trả nợ của khách hàng. Từ đó, đề xuất các tham số (rules) để phân luồng phê duyệt tín dụng tự động.
 
-## 2. Nguồn Dữ Liệu (Prepare)
-- **Nguồn:** Bộ dữ liệu [Home Credit Default Risk trên Kaggle](https://www.kaggle.com/c/home-credit-default-risk/data).
-- **Tập dữ liệu:** Sử dụng bảng `application_train.csv` (chứa hơn 300,000 bản ghi về thông tin khách hàng tại thời điểm nộp đơn vay).
+## 2. Nguồn dữ liệu (Prepare)
+*   **Nguồn:** Bộ dữ liệu [Home Credit Default Risk (Kaggle)](https://www.kaggle.com/c/home-credit-default-risk/data).
+*   **Tập dữ liệu:** Bảng `application_train.csv` (chứa 307,511 bản ghi thông tin khách hàng tại thời điểm nộp đơn vay).
 
-## 3. Quá trình Làm sạch và Xử lý Dữ liệu (Process)
-Để chứng minh sự linh hoạt trong việc sử dụng công cụ, tôi đã thực hiện làm sạch dữ liệu song song bằng 2 phương pháp: **Python** và **SQL**.
+## 3. Xử lý và Làm sạch Dữ liệu (Process)
+Dự án thực thi làm sạch dữ liệu song song bằng 2 phương pháp (Python và SQL) để chứng minh sự linh hoạt trong kỹ thuật tiền xử lý.
 
-**Cách 1: Sử dụng Python (Pandas & NumPy)**
-- Nạp dữ liệu vào Google Colab.
-- Sử dụng `.drop_duplicates()` để loại bỏ các ID lặp lại.
-- Xử lý Outliers: Phát hiện và dùng `np.nan` thay thế giá trị lỗi `365243` trong cột `DAYS_EMPLOYED`.
-- 👉 [Xem chi tiết mã nguồn Python (Jupyter Notebook) tại đây](Link_Đến_File_Colab_Trên_Github_Của_Bạn)
+### Cách 1: Tiền xử lý bằng Python (Google Colab)
+*   Nạp và đọc dữ liệu bằng thư viện Pandas.
+*   **Xác minh định danh:** Sử dụng `.drop_duplicates()` để loại bỏ các ID khách hàng lặp lại, đảm bảo tính duy nhất của khóa chính `SK_ID_CURR`.
+*   **Xử lý điểm dị biệt (Outliers):** Phát hiện lỗi hệ thống ở cột `DAYS_EMPLOYED` với giá trị `365243` (tương đương 1000 năm). Sử dụng `np.nan` thay thế để ngăn chặn sai lệch thống kê.
+*   👉 [Xem chi tiết mã nguồn Python tại Google Colab](https://colab.research.google.com/drive/1jnYylKUXVeZhdyjDaTWBFyerzC8ykWjp#scrollTo=lWP45kcHwzVD)
 
-**Cách 2: Sử dụng SQL (Google BigQuery)**
-- Tạo bảng ngoài (External Table) kết nối với Google Cloud Storage.
-- Dùng lệnh `COUNT` và `GROUP BY` để kiểm tra toàn vẹn dữ liệu.
-- Dùng hàm `NULLIF` và `COALESCE` để xử lý giá trị bất thường và điền khuyết dữ liệu thiếu (Missing values).
-- Tạo Native Table mới để tối ưu hóa hiệu suất truy vấn.
+### Cách 2: Tiền xử lý bằng SQL (Google BigQuery)
+*   **Khởi tạo:** Tạo bảng ngoài (External Table) kết nối trực tiếp với Google Cloud Storage.
+*   **Kiểm tra toàn vẹn:** Sử dụng `COUNT` và `GROUP BY` để xác minh không có sự trùng lặp khóa chính.
+*   **Làm sạch khuyết thiếu:** Dùng hàm `NULLIF` và `COALESCE` để xử lý giá trị dị biệt và điền nhãn 'Unknown' cho dữ liệu trống.
+*   **Tối ưu hóa:** Tạo Native Table mới (`application_train_cleaned`) để gỡ bỏ giới hạn Read-only và tăng tốc truy vấn.
 
 <details>
-<summary><b>Bấm vào đây để xem Code SQL</b></summary>
+<summary><b>Mã nguồn SQL khởi tạo bảng sạch</b></summary>
 
 ```sql
 CREATE OR REPLACE TABLE `your_project.home_credit.application_train_cleaned` AS
@@ -39,20 +40,26 @@ SELECT
 FROM `your_project.home_credit.application_train`;
 ```
 
-## 4. Phân tích & Trực quan hóa Dữ liệu (Analyze & Share)
-Dữ liệu sau khi làm sạch được truy xuất qua SQL để lấy các bảng tổng hợp và đưa vào Tableau để xây dựng Dashboard.
+4. Phân tích & Trực quan hóa Dữ liệu (Analyze & Share)
+Dữ liệu sau khi làm sạch được truy xuất qua SQL để lấy các bảng tổng hợp và đưa vào Tableau xây dựng Dashboard.
 
-(Lưu ý: Thay thế dòng bên dưới bằng cách dán link ảnh bạn đã copy ở bước trên vào giữa hai dấu ngoặc đơn)
+(Chèn ảnh Dashboard Tableau tại đây bằng cú pháp: ![Dashboard Phân tích Rủi ro Tín dụng](Link_Ảnh_Của_Bạn))
 
-Insights chính rút ra từ biểu đồ:
+Insights chính rút ra từ dữ liệu:
 
-Theo độ tuổi: Nhóm khách hàng trẻ tuổi (Dưới 30 tuổi) có tỷ lệ nợ xấu cao nhất. Tỷ lệ rủi ro giảm dần và an toàn nhất ở độ tuổi trung niên và người cao tuổi.
+Phân bổ theo độ tuổi: Nhóm khách hàng trẻ tuổi (Dưới 30 tuổi) có tỷ lệ nợ xấu cao nhất. Tỷ lệ rủi ro giảm dần và đạt mức an toàn nhất ở độ tuổi trung niên và người cao tuổi.
 
-Theo học vấn: Khách hàng có trình độ học vấn thấp (Secondary/Lower secondary) mang rủi ro vỡ nợ cao hơn hẳn so với nhóm có bằng Đại học trở lên (Higher education).
+Phân bổ theo học vấn: Khách hàng có trình độ học vấn thấp (Secondary/Lower secondary) mang rủi ro vỡ nợ cao hơn mức trung bình và vượt trội so với nhóm có bằng Đại học trở lên (Higher education).
 
-## 5. Đề xuất Chiến lược Kinh doanh (Act)
-Dựa trên các Insight thu được, tôi đề xuất tích hợp các quy tắc sau vào mô hình AI Credit Scoring của hệ thống Core Banking:
+5. Đề xuất Chiến lược Kinh doanh (Act)
+Dựa trên kết quả phân tích định lượng, đề xuất tích hợp các quy tắc sau vào mô hình AI Credit Scoring của hệ thống Core Banking:
 
-Thiết lập "Luồng Xanh" (Straight-Through Processing): Tự động duyệt hồ sơ cho các khoản vay tín chấp nhỏ đối với tệp khách hàng rủi ro thấp (Trên 30 tuổi và có bằng Đại học). Điều này giúp giảm thiểu chi phí vận hành và rút ngắn thời gian phê duyệt xuống còn vài phút.
+Thiết lập "Luồng Xanh" (Straight-Through Processing): Tự động duyệt hồ sơ cho các khoản vay tín chấp nhỏ đối với phân khúc khách hàng rủi ro thấp (Trên 30 tuổi và có bằng Đại học). Giải pháp này giúp tối ưu chi phí vận hành và rút ngắn thời gian phê duyệt xuống mức tối thiểu.
 
-Thiết lập "Luồng Thẩm Định Kỹ": Đối với tệp rủi ro cao (Dưới 30 tuổi và học vấn cấp 2/cấp 3), hệ thống AI nên tự động đẩy hồ sơ sang luồng thẩm định thủ công. Yêu cầu nhân viên tín dụng gọi điện xác minh, yêu cầu bổ sung giấy tờ chứng minh thu nhập hoặc yêu cầu người đồng bảo lãnh trước khi giải ngân.
+Thiết lập "Luồng Thẩm Định Kỹ": Đối với phân khúc rủi ro cao (Dưới 30 tuổi và học vấn cấp 2/cấp 3), hệ thống AI tự động chuyển hướng hồ sơ sang luồng thẩm định thủ công. Bắt buộc nhân viên tín dụng thực hiện gọi điện xác minh chéo, yêu cầu bổ sung chứng từ thu nhập hoặc chỉ định người đồng bảo lãnh trước khi giải ngân.
+
+Tác giả: Nguyen Dinh Tuan
+
+Chuyên môn: Banking Operations Specialist & Data Analyst
+
+Liên hệ: LinkedIn | nguyendinhtuan181@gmail.com
