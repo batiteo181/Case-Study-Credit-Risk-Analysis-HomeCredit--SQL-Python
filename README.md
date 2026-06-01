@@ -1,6 +1,6 @@
 # Phân Tích Dữ Liệu Rủi Ro Tín Dụng (Credit Risk Analysis)
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)]([https://colab.research.google.com/drive/1jnYylKUXVeZhdyjDaTWBFyerzC8ykWjp#scrollTo=lWP45kcHwzVD](https://colab.research.google.com/drive/1jnYylKUXVeZhdyjDaTWBFyerzC8ykWjp?usp=sharing))
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1jnYylKUXVeZhdyjDaTWBFyerzC8ykWjp?usp=sharing)
 
 **Công cụ sử dụng:** SQL (Google BigQuery), Python (Pandas, NumPy), Tableau Public.
 
