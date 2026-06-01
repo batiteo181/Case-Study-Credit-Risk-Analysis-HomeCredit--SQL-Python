@@ -28,7 +28,7 @@ Dự án thực thi làm sạch dữ liệu song song bằng 2 phương pháp (P
 *   **Làm sạch khuyết thiếu:** Dùng hàm `NULLIF` và `COALESCE` để xử lý giá trị dị biệt và điền nhãn 'Unknown' cho dữ liệu trống.
 *   **Tối ưu hóa:** Tạo Native Table mới (`application_train_cleaned`) để gỡ bỏ giới hạn Read-only và tăng tốc truy vấn.
 
-<details>
+
 <summary><b>Mã nguồn SQL khởi tạo bảng sạch</b></summary>
 
 ```sql
@@ -39,7 +39,7 @@ SELECT
     COALESCE(OCCUPATION_TYPE, 'Unknown') AS OCCUPATION_TYPE_CLEANED
 FROM `your_project.home_credit.application_train`;
 ```
-<details>
+
 
 ## 4. Phân tích & Trực quan hóa Dữ liệu (Analyze & Share)
 Dữ liệu sau khi làm sạch được truy xuất qua SQL để lấy các bảng tổng hợp và đưa vào Tableau xây dựng Dashboard.
