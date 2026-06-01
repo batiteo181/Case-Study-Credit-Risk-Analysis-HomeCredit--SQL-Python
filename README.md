@@ -39,8 +39,9 @@ SELECT
     COALESCE(OCCUPATION_TYPE, 'Unknown') AS OCCUPATION_TYPE_CLEANED
 FROM `your_project.home_credit.application_train`;
 ```
+<details>
 
-4. Phân tích & Trực quan hóa Dữ liệu (Analyze & Share)
+## 4. Phân tích & Trực quan hóa Dữ liệu (Analyze & Share)
 Dữ liệu sau khi làm sạch được truy xuất qua SQL để lấy các bảng tổng hợp và đưa vào Tableau xây dựng Dashboard.
 
 (Chèn ảnh Dashboard Tableau tại đây bằng cú pháp: ![Dashboard Phân tích Rủi ro Tín dụng](Link_Ảnh_Của_Bạn))
@@ -51,7 +52,7 @@ Phân bổ theo độ tuổi: Nhóm khách hàng trẻ tuổi (Dưới 30 tuổi
 
 Phân bổ theo học vấn: Khách hàng có trình độ học vấn thấp (Secondary/Lower secondary) mang rủi ro vỡ nợ cao hơn mức trung bình và vượt trội so với nhóm có bằng Đại học trở lên (Higher education).
 
-5. Đề xuất Chiến lược Kinh doanh (Act)
+## 5. Đề xuất Chiến lược Kinh doanh (Act)
 Dựa trên kết quả phân tích định lượng, đề xuất tích hợp các quy tắc sau vào mô hình AI Credit Scoring của hệ thống Core Banking:
 
 Thiết lập "Luồng Xanh" (Straight-Through Processing): Tự động duyệt hồ sơ cho các khoản vay tín chấp nhỏ đối với phân khúc khách hàng rủi ro thấp (Trên 30 tuổi và có bằng Đại học). Giải pháp này giúp tối ưu chi phí vận hành và rút ngắn thời gian phê duyệt xuống mức tối thiểu.
