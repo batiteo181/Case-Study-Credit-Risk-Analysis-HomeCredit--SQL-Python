@@ -1,6 +1,6 @@
 # Phân Tích Dữ Liệu Rủi Ro Tín Dụng (Credit Risk Analysis)
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1jnYylKUXVeZhdyjDaTWBFyerzC8ykWjp#scrollTo=lWP45kcHwzVD)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)]([https://colab.research.google.com/drive/1jnYylKUXVeZhdyjDaTWBFyerzC8ykWjp#scrollTo=lWP45kcHwzVD](https://colab.research.google.com/drive/1jnYylKUXVeZhdyjDaTWBFyerzC8ykWjp?usp=sharing))
 
 **Công cụ sử dụng:** SQL (Google BigQuery), Python (Pandas, NumPy), Tableau Public.
 
@@ -20,7 +20,7 @@ Dự án thực thi làm sạch dữ liệu song song bằng 2 phương pháp (P
 *   Nạp và đọc dữ liệu bằng thư viện Pandas.
 *   **Xác minh định danh:** Sử dụng `.drop_duplicates()` để loại bỏ các ID khách hàng lặp lại, đảm bảo tính duy nhất của khóa chính `SK_ID_CURR`.
 *   **Xử lý điểm dị biệt (Outliers):** Phát hiện lỗi hệ thống ở cột `DAYS_EMPLOYED` với giá trị `365243` (tương đương 1000 năm). Sử dụng `np.nan` thay thế để ngăn chặn sai lệch thống kê.
-*   👉 [Xem chi tiết mã nguồn Python tại Google Colab](https://colab.research.google.com/drive/1jnYylKUXVeZhdyjDaTWBFyerzC8ykWjp#scrollTo=lWP45kcHwzVD)
+*   👉 [Xem chi tiết mã nguồn Python tại Google Colab]([https://colab.research.google.com/drive/1jnYylKUXVeZhdyjDaTWBFyerzC8ykWjp#scrollTo=lWP45kcHwzVD](https://colab.research.google.com/drive/1jnYylKUXVeZhdyjDaTWBFyerzC8ykWjp?usp=sharing))
 
 ### Cách 2: Tiền xử lý bằng SQL (Google BigQuery)
 *   **Khởi tạo:** Tạo bảng ngoài (External Table) kết nối trực tiếp với Google Cloud Storage.
@@ -44,7 +44,7 @@ FROM `your_project.home_credit.application_train`;
 ## 4. Phân tích & Trực quan hóa Dữ liệu (Analyze & Share)
 Dữ liệu sau khi làm sạch được truy xuất qua SQL để lấy các bảng tổng hợp và đưa vào Tableau xây dựng Dashboard.
 
-(Chèn ảnh Dashboard Tableau tại đây bằng cú pháp: ![Dashboard Phân tích Rủi ro Tín dụng](Link_Ảnh_Của_Bạn))
+(Chèn ảnh Dashboard Tableau tại đây bằng cú pháp: ![Dashboard Phân tích Rủi ro Tín dụng](https://github.com/batiteo181/Case-Study-Credit-Risk-Analysis-HomeCredit--SQL-Python/tree/main/03_Visualizations)
 
 Insights chính rút ra từ dữ liệu:
 
